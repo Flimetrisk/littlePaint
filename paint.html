@@ -126,7 +126,99 @@
 		</div>
 		<canvas width="1300" height="700" id="tabla_dibujo"></canvas>
 	</section>
-	<script type="text/javascript" src="eventos.js"></script>
+	<script type="text/javascript">
+		document.addEventListener("mousemove", dibujoTecla); 
+document.addEventListener("mousedown", dibujoRaton);
+document.addEventListener("mouseup", ignore);
+var path = document.getElementById("tabla_dibujo");
+var papel = path.getContext("2d");
+
+var color;
+
+
+function dibujar(color, xinicial, yinicial, xfinal, yfinal, lienzo)
+{
+  var txt = document.getElementById("width")
+  var width = parseInt(txt.value);
+  lienzo.beginPath();
+  lienzo.strokeStyle = color;
+  lienzo.lineWidth = width; // este es el grosor
+  lienzo.moveTo(xinicial, yinicial);
+  lienzo.lineTo(xfinal, yfinal);
+  lienzo.stroke();
+  lienzo.closePath();
+}
+dibujar("black",0,0,1300,0, papel);
+dibujar("black",0,0,0,700, papel);
+dibujar("black",1300,0,1300,700, papel);
+dibujar("black",0,700,1300,700, papel);
+
+
+var state = 0;
+function dibujoTecla(mosuePosition)
+{ 
+	if(state == 1)
+	{	
+	var posX = mosuePosition.offsetX;
+	var posY = mosuePosition.offsetY;	
+	dibujar(color, posX, posY, posX-0.02, posY-0.02, papel);
+	}
+}
+function dibujoRaton()
+{
+	state = 1;
+}
+function ignore()
+{
+	state = 0;
+}
+
+/* STYLE BUTTON FOR COLORS*/
+function menuDrop() {
+    document.getElementById("myMenu").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.menubutton')) {
+
+    var dropdowns = document.getElementsByClassName("menu_content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+function toRed()
+{
+	color = "red";
+}
+function toBlack()
+{
+	color = "black";
+}
+function toBrown()
+{
+	color = "Brown";
+}
+function toBlue()
+{
+	color = "Blue";
+}
+function toWhite()
+{
+	color = "white";
+}
+function erase()
+{
+	color = "white";
+	width = 20;
+}
+	</script>
 	<footer class="footer">
 		<p><h3>You can give me tips to improve this :</h3></p>
 		<p> <a href="mailto:steven.p-m@hotmail.com" id="mail">steven.p-m@hotmail.com</a>.</p>
